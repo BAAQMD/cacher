@@ -1,0 +1,13 @@
+Package: cacher
+Title: Cache R objects on disk
+Version: 0.5.1
+Authors@R: "David Holstius <dholstius@baaqmd.gov> [aut, cre]"
+Description: Simple filesystem-backed cache for arbitrary R expressions
+Depends:
+    R (>= 3.1.2),
+    flogger (>= 0.1.0),
+    feather
+License: MIT
+LazyData: true
+RoxygenNote: 6.0.1
+Suggests: testthat
