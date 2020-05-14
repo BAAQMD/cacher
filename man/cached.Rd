@@ -4,8 +4,12 @@
 \alias{cached}
 \title{Declare a cached object}
 \usage{
-cached(..., root = cache_root(), ext = c(".rds", ".feather", ".rds.lz4",
-  ".rds.snz"), verbose = getOption("verbose"))
+cached(
+  ...,
+  root = cache_root(),
+  ext = c(".rds", ".feather", ".rds.lz4", ".rds.snz"),
+  verbose = getOption("verbose")
+)
 }
 \arguments{
 \item{\dots}{components of cache key (NOT the cached expression!)}

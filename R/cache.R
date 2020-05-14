@@ -1,19 +1,20 @@
 #' Cache R objects on disk
 #'
-#' @description
-#' Store and retrieve results of arbitrary R expressions in .Rds files
+#' @rdname cache
 #'
-#' @param key character (filename will be \code{key + .rds})
+#' @description Store and retrieve results of arbitrary R expressions
+#'
 #' @param expr expression
-#' @param path character
-#' @param compress as in \link{readRDS}
-#' @param verbose logical
-#' @param force logical
-#' @param \dots further arguments
+#' @param key character (filename will be equal to `key` appended with `ext`)
+#' @param compress as in [readr::read_rds()]
+#' @param verbose display messages
+#' @param force ignore whether an object may already be cached
 #'
-#' @note Watch out for case-insensitive filesystems!
+#' @return object (see Details)
 #'
-#' @name cache
+#' @details If `ext` is ".fst" or ".feather", then the returned value will be
+#'   tabular data. If `ext` is ".rds", then it can be any kind of object.
+
 #' @export
 cache <- function (
   expr,
@@ -36,9 +37,6 @@ cache <- function (
     status <- "hit"
     obj <- cache_get(full_path)
   }
-
-  # For debugging
-  if (verbose) flog("[cache] ", status, ": ", full_path, level = "debug")
 
   # Attach metadata
   metadata <- list(path = full_path, hit = (status == "hit"), force = force)
