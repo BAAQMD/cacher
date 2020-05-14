@@ -1,13 +1,21 @@
 Package: cacher
-Title: Cache R objects on disk
-Version: 0.5.1
+Title: Cache Objects on Disk
+Version: 2020.05.13
 Authors@R: "David Holstius <dholstius@baaqmd.gov> [aut, cre]"
-Description: Simple filesystem-backed cache for arbitrary R expressions
+Description: Simple filesystem-backed cache for R expressions.
 Depends:
-    R (>= 3.1.2),
-    flogger (>= 0.1.0),
-    feather
-License: MIT
+  R (>= 3.1.2)
+Imports:
+  fst,
+  readr,
+  feather,
+  tibble
+License: CC0
 LazyData: true
-RoxygenNote: 6.0.1
-Suggests: testthat
+RoxygenNote: 7.1.0
+Suggests:
+  testthat,
+  knitr
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
+Encoding: UTF-8
