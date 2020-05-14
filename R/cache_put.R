@@ -1,4 +1,17 @@
-cache_put <- function (obj, ..., root = cache_root(), ext = c(".rds", ".feather", ".rds.lz4", ".rds.snz"), verbose = getOption("verbose")) {
+#' Put content in the cache
+#'
+#' @rdname cache
+#'
+#' @param obj object
+#'
+#' @export
+cache_put <- function (
+  obj,
+  ...,
+  root = cache_root(),
+  ext = c(".rds", ".fst", ".feather", ".rds.lz4", ".rds.snz"),
+  verbose = getOption("verbose")
+) {
 
   msg <- function (...) if(isTRUE(verbose)) message("[cache_put] ", ...)
 
@@ -10,29 +23,37 @@ cache_put <- function (obj, ..., root = cache_root(), ext = c(".rds", ".feather"
 
   msg("writing to: ", pth)
 
-  if (ext == ".feather") {
+  if (ext == ".rds") {
 
-    msg("writing `feather` object to ", pth)
-    require(feather) # experimental support for https://github.com/wesm/feather
+    readr::write_rds(obj, pth)
+
+  } else if (ext == ".fst") {
+
+    msg("writing tabular data to ", pth)
     stopifnot(is.data.frame(obj))
-    print(obj)
-    feather::write_feather(force(tibble::as_tibble(obj)), pth)
+    tbl <- force(tibble::as_tibble(obj))
 
-  } else if (ext == ".rds") {
+    fst::write_fst(obj, pth)
 
-    saveRDS(obj, file = pth)
+  } else if (ext == ".feather") {
+
+    msg("writing tabular data to ", pth)
+    stopifnot(is.data.frame(obj))
+    tbl <- force(tibble::as_tibble(obj))
+
+    feather::write_feather(tbl, pth)
 
   } else if (ext == ".rds.lz4") {
 
     con <- lz4_pipe(pth, mode = "write")
-    saveRDS(obj, file = con)
+    readr::write_rds(obj, file = con)
     flush(con)
     close(con)
 
   } else if (ext == ".rds.snz") {
 
     con <- snz_pipe(pth, mode = "write")
-    saveRDS(obj, file = con)
+    readr::write_rds(obj, file = con)
     flush(con)
     close(con)
 
