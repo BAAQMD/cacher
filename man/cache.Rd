@@ -19,7 +19,7 @@ cache_put(
   obj,
   ...,
   root = cache_root(),
-  ext = c(".rds", ".feather", ".rds.lz4", ".rds.snz"),
+  ext = c(".rds", ".fst", ".feather", ".rds.lz4", ".rds.snz"),
   verbose = getOption("verbose")
 )
 }

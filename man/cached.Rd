@@ -7,7 +7,7 @@
 cached(
   ...,
   root = cache_root(),
-  ext = c(".rds", ".feather", ".rds.lz4", ".rds.snz"),
+  ext = c(".rds", ".fst", ".feather", ".rds.lz4", ".rds.snz"),
   verbose = getOption("verbose")
 )
 }
@@ -16,7 +16,7 @@ cached(
 
 \item{root}{function that yields the path on disk}
 
-\item{ext}{form of cached data (".feather" is fastest for r/w, but larger on disk)}
+\item{ext}{form of cached data (".fst" is fastest for tabular data)}
 
 \item{verbose}{logical}
 }
